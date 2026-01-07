@@ -27,34 +27,21 @@
     <section>
         <h2 class="tasks">My tasks</h2>
 
-        <!-- 🔽 ЗМІНА 1: додав id для JS + autocomplete -->
+        <!-- ЗМІНА 1: додав id для JS + autocomplete -->
         <form id="task-form" autocomplete="off">
 
-            <!-- 🔽 ЗМІНА 2: label залишив, але тепер без visually-hidden
-                 (CSS все одно його ховає) -->
+            <!-- ЗМІНА 2: label залишив, але тепер без visually-hidden (CSS все одно його ховає) -->
             <label for="task">Task</label>
-
-            <input
-                type="text"
-                id="task"
-                class="input"
-                placeholder="New task"
-                required
-            >
+            <input type="text" id="task" class="input" placeholder="New task" required>
 
             <label for="date">Deadline</label>
-            <input
-                type="date"
-                id="date"
-                class="input2"
-            >
+            <input type="date" id="date" class="input2">
 
-            <!-- 🔽 ЗМІНА 3: явно вказав type="submit" -->
+            <!-- ЗМІНА 3: явно вказав type="submit" -->
             <button type="submit" class="add">Add</button>
         </form>
 
-        <!-- 🔽 ЗМІНА 4 (ГОЛОВНА):
-             підготовлений контейнер для задач -->
+        <!-- ЗМІНА 4 (ГОЛОВНА): підготовлений контейнер для задач -->
         <ul class="task-list">
             <!-- JS буде додавати задачі сюди -->
         </ul>
@@ -63,6 +50,6 @@
 </main>
 
     <script src="js/app.js"></script>
-
+    
 </body>
 </html>

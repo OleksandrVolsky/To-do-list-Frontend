@@ -162,7 +162,6 @@ label {
 
 
 /* ===== Оновленя для списку задач ===== */
-
 .task-list {
     list-style: none;
     margin-top: 25px;
@@ -216,7 +215,6 @@ label {
 }
 
 /* ===== Виконана задача ===== */
-
 .task-item.completed {
     opacity: 0.6;
 }
@@ -226,7 +224,6 @@ label {
 }
 
 /* ===== Адаптивність ===== */
-
 /* Для планшетів і менших екранів (до 900px) */
 @media (max-width: 900px) {
     main {
@@ -284,7 +281,7 @@ label {
 }
 
 /* Для мобільних телефонів (до 500px) */
-/* @media (max-width: 500px) {
+@media (max-width: 500px) {
     .tasks {
         font-size: 24px;
     }
@@ -311,5 +308,5 @@ label {
     .task-list {
         max-height: 250px;
     }
-} */
+}
 

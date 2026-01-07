@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>To-do</title>
+</head>
+<body>
+
+<main>
+    <!-- Сайдбар -->
+    <aside>
+        <h1 class="todo">To-Do List</h1>
+        <nav class="nav">
+            <button class="btn">All tasks</button>
+            <button class="btn">Today</button>
+            <button class="btn">Completed</button>
+            <button class="btn">Overdue</button>
+        </nav>
+    </aside>
+
+    <!-- Основний вміст -->
+    <section>
+        <h2 class="tasks">My tasks</h2>
+
+        <!-- 🔽 ЗМІНА 1: додав id для JS + autocomplete -->
+        <form id="task-form" autocomplete="off">
+
+            <!-- 🔽 ЗМІНА 2: label залишив, але тепер без visually-hidden
+                 (CSS все одно його ховає) -->
+            <label for="task">Task</label>
+
+            <input
+                type="text"
+                id="task"
+                class="input"
+                placeholder="New task"
+                required
+            >
+
+            <label for="date">Deadline</label>
+            <input
+                type="date"
+                id="date"
+                class="input2"
+            >
+
+            <!-- 🔽 ЗМІНА 3: явно вказав type="submit" -->
+            <button type="submit" class="add">Add</button>
+        </form>
+
+        <!-- 🔽 ЗМІНА 4 (ГОЛОВНА):
+             підготовлений контейнер для задач -->
+        <ul class="task-list">
+            <!-- JS буде додавати задачі сюди -->
+        </ul>
+
+    </section>
+</main>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>

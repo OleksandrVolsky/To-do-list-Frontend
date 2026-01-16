@@ -1,6 +1,8 @@
 *{
     margin: 0px;
     padding: 0px;
+
+    box-sizing: border-box;
 }
 
 
@@ -10,20 +12,22 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    font-family: 'Inter', sans-serif;
 }
 
 main {
     background-color: #ffffff;
     color: #000000 ;
-    width: 836px;
-    height: 527px;
+    max-width: 836px;
+    min-height: 527px;
+    width: 100%;
     border-radius: 10px;
     display: flex;
 }
 
 /* Сайдбар */
 aside {
-    width: 242px;
+    width: 240px;
     background-color: #2ECC71;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -38,7 +42,6 @@ aside {
     color: #ffffff;
     font-size: 36px;
     font-weight: bold;
-    font-family: 'Inter', sans-serif;
 
     padding: 0;
     margin-bottom: 40px;
@@ -48,60 +51,51 @@ aside {
 
 .btn {
     color: #FFFFFF;
+    font-weight: bold;
     background-color: #27AE60;
     border-radius: 10px;
     border: 1px solid #27AE60;
     width: 90px;
     height: 40px;
     font-size: 16px;
-    font-weight: medium;
-    font-family: 'Inter', sans-serif;
+    font-weight: 500;
     margin: 5px;
 }
 
-.btn:hover {
+.btn:hover, .btn:focus {
     color: #000000;
     background-color: #A3E635;
     border: 1px solid #A3E635;
-}
-
-.btn:focus {
-    color: #000000;
-    background-color: #A3E635;
-    border: 1px solid #A3E635;    
 }
 
 /* Основний вміст */
 .tasks {
     padding-top: 20px;
     padding-left: 5px;
-    font-family: 'Inter', sans-serif;
     color: #000000;
     font-size: 36px;
-    font-weight: medium;
+    font-weight: 500;
 }
 
 .input {
     margin-left: 5px;
-    width: 240px;
+    max-width: 240px;
     height: 42px;
     border-radius: 5px;
     font-size: 16px;
     color: #808080;
     border: 3px solid #2ECC71;
-    font-family: 'Inter', sans-serif;
     padding-left: 10px;
 }
 
-.input2 {
+.input-data {
     margin-left: 5px;
-    width: 154px;
+    max-width: 240px;
     height: 42px;
     border-radius: 5px;
     font-size: 16px;
-    color: #000000;
+    color: #808080;
     border: 3px solid #2ECC71;
-    font-family: 'Inter', sans-serif;
     cursor: pointer; 
 }
 
@@ -112,32 +106,22 @@ aside {
     border: 1px solid #2ECC71;
     background-color: #2ECC71;
     border-radius: 10px;
-    font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: bold;
     color: #ffffff;
 }
 
-.add:active {
-    border: 1px solid #2ECC71;
-    background-color: #2ECC71;
-    border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    color: #ffffff;
-}
-
-.add:hover {
+.add:active, .add:hover {
     border: 1px solid #A3E635;
     background-color: #A3E635;
     border-radius: 10px;
-    font-family: 'Inter', sans-serif;
     font-size: 16px;
     color: #000000;
 }
 
 button{
     cursor: pointer;
+    transition: 0.2s ease;
 
 }
 
@@ -156,8 +140,7 @@ nav {
 label {
     
     position: absolute;
-    width: 0px;
-    overflow: hidden;
+    left: -9999px;
 }
 
 
@@ -240,7 +223,7 @@ label {
         padding: 10px 0;
     }
 
-    .nav {
+    nav {
         flex-direction: row;
         gap: 5px;
     }
@@ -265,7 +248,7 @@ label {
         margin-bottom: 10px;
     }
 
-    .input2 {
+    .input-data {
         width: 30%;
         margin-bottom: 10px;
     }
@@ -295,7 +278,7 @@ label {
         width: 100%;
     }
 
-    .input2 {
+    .input-data {
         width: 100%;
     }
 

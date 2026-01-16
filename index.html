@@ -15,7 +15,7 @@
     <!-- Сайдбар -->
     <aside>
         <h1 class="todo">To-Do List</h1>
-        <nav class="nav">
+        <nav>
             <button class="btn">All tasks</button>
             <button class="btn">Today</button>
             <button class="btn">Completed</button>
@@ -25,7 +25,7 @@
 
     <!-- Основний вміст -->
     <section>
-        <h2 class="tasks">My tasks</h2>
+        <h2 class="tasks">My Tasks</h2>
 
         <!-- ЗМІНА 1: додав id для JS + autocomplete -->
         <form id="task-form" autocomplete="off">
@@ -35,7 +35,7 @@
             <input type="text" id="task" class="input" placeholder="New task" required>
 
             <label for="date">Deadline</label>
-            <input type="date" id="date" class="input2">
+            <input type="date" id="date" class="input-data">
 
             <!-- ЗМІНА 3: явно вказав type="submit" -->
             <button type="submit" class="add">Add</button>

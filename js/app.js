@@ -122,3 +122,5 @@ function saveTasks() {
     localStorage.setItem('tasks', JSON.stringify(tasksData));
 }
 
+self.addEventListener("fetch", () => {});
+

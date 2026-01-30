@@ -1,120 +1,158 @@
-/* GPT зробив */
-// ===== Отримуємо елементи =====
+/* Спрощена версія, щоб було легше для початківця */
+
+// --- Селектори DOM ---
 const form = document.getElementById('task-form');
 const taskInput = document.getElementById('task');
 const dateInput = document.getElementById('date');
 const taskList = document.querySelector('.task-list');
 const filterButtons = document.querySelectorAll('nav .btn');
 
-// ===== Завантажуємо задачі з localStorage при старті =====
-let tasksData = JSON.parse(localStorage.getItem('tasks')) || [];
+// --- Стейт додатка ---
+let tasks = loadTasks(); // масив задач: { id, text, date, completed }
+saveTasks(); // оновлюємо localStorage щоб старі задачі отримали id
+let activeFilter = 'All tasks';
 
-tasksData.forEach(task => createTaskElement(task));
-applyFilter('All tasks'); // показує всі на старті
+// --- Ініціалізація ---
+init();
 
-// ===== Додавання задачі =====
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const taskText = taskInput.value.trim();
-    const taskDate = dateInput.value;
-
-    if (taskText === '') return;
-
-    const taskObj = {
-        text: taskText,
-        date: taskDate || '',
-        completed: false
-    };
-
-    tasksData.push(taskObj);
-    saveTasks();
-
-    createTaskElement(taskObj);
-
-    taskInput.value = '';
-    dateInput.value = '';
-});
-
-// ===== Функція створення li =====
-function createTaskElement(taskObj) {
-    const li = document.createElement('li');
-    li.classList.add('task-item');
-    if (taskObj.completed) li.classList.add('completed');
-
-    if (taskObj.date) li.dataset.date = taskObj.date;
-
-    li.innerHTML = `
-        <input type="checkbox" class="task-checkbox" ${taskObj.completed ? 'checked' : ''}>
-        <span class="task-text">${taskObj.text}</span>
-        <span class="task-date">${taskObj.date}</span>
-        <button class="task-delete">✕</button>
-    `;
-
-    taskList.appendChild(li);
+function init() {
+  renderTasks();
+  form.addEventListener('submit', onFormSubmit);
+  taskList.addEventListener('click', onTaskListClick);
+  filterButtons.forEach(btn => btn.addEventListener('click', onFilterClick));
 }
 
-// ===== Checkbox + delete =====
-taskList.addEventListener('click', function (e) {
-    const li = e.target.closest('.task-item');
-    if (!li) return;
+// --- Зберігання даних ---
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
 
-    const index = Array.from(taskList.children).indexOf(li);
+function loadTasks() {
+  const raw = JSON.parse(localStorage.getItem('tasks')) || [];
+  // Додаємо унікальні id, якщо їх немає (щоб старі записи працювали)
+  return raw.map(t => {
+    if (!t.id) t.id = Date.now().toString() + Math.random().toString(36).slice(2, 8);
+    return t;
+  });
+}
 
-    // Видалення
-    if (e.target.classList.contains('task-delete')) {
-        tasksData.splice(index, 1);
-        saveTasks();
-        li.remove();
-        return;
-    }
+// --- Обробники подій ---
+function onFormSubmit(e) {
+  e.preventDefault();
+  const text = taskInput.value.trim();
+  const date = dateInput.value;
 
-    // Виконано
-    if (e.target.classList.contains('task-checkbox')) {
-        li.classList.toggle('completed');
-        tasksData[index].completed = li.classList.contains('completed');
-        saveTasks();
-    }
-});
+  if (!text) return; // нічого не робимо, якщо пусто
 
-// ===== Фільтри =====
-filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const filter = btn.textContent.trim();
-        applyFilter(filter);
-    });
-});
+  addTask({
+    id: Date.now().toString(),
+    text,
+    date: date || '',
+    completed: false
+  });
 
-function applyFilter(filter) {
-    const tasks = document.querySelectorAll('.task-item');
-    const today = new Date().toISOString().split('T')[0];
+  taskInput.value = '';
+  dateInput.value = '';
+}
 
-    tasks.forEach(task => {
-        const isCompleted = task.classList.contains('completed');
-        const taskDate = task.dataset.date || '';
+function onTaskListClick(e) {
+  const li = e.target.closest('.task-item');
+  if (!li) return;
+  const id = li.dataset.id;
 
-        let show = false;
+  if (e.target.classList.contains('task-delete')) {
+    deleteTask(id);
+    return;
+  }
 
-        switch (filter) {
-            case 'All tasks':
-                show = true;
-                break;
+  if (e.target.classList.contains('task-checkbox')) {
+    toggleTaskCompleted(id);
+    return;
+  }
+}
 
-            case 'Today':
-                show = taskDate === today;
-                break;
+function onFilterClick(e) {
+  activeFilter = e.target.textContent.trim();
+  renderTasks();
+}
 
-            case 'Completed':
-                show = isCompleted;
-                break;
+// --- Операції над задачами ---
+function addTask(task) {
+  tasks.push(task);
+  saveTasks();
+  renderTasks();
+}
 
-            case 'Overdue':
-                show = taskDate !== '' && taskDate < today && !isCompleted;
-                break;
-        }
+function deleteTask(id) {
+  tasks = tasks.filter(t => t.id !== id);
+  saveTasks();
+  renderTasks();
+}
 
-        task.style.display = show ? 'flex' : 'none';
-    });
+function toggleTaskCompleted(id) {
+  const t = tasks.find(t => t.id === id);
+  if (!t) return;
+  t.completed = !t.completed;
+  saveTasks();
+  renderTasks();
+}
+
+// --- Рендеринг ---
+function renderTasks() {
+  taskList.innerHTML = '';
+  const today = new Date().toISOString().split('T')[0];
+
+  tasks.forEach(task => {
+    if (!shouldShowTask(task, activeFilter, today)) return;
+    taskList.appendChild(createTaskElement(task));
+  });
+}
+
+function shouldShowTask(task, filter, today) {
+  const isCompleted = task.completed;
+  const taskDate = task.date || '';
+
+  switch (filter) {
+    case 'All tasks': return true;
+    case 'Today': return taskDate === today;
+    case 'Completed': return isCompleted;
+    case 'Overdue': return taskDate !== '' && taskDate < today && !isCompleted;
+    default: return true;
+  }
+}
+
+function createTaskElement(task) {
+  const li = document.createElement('li');
+  li.className = 'task-item';
+  li.dataset.id = task.id;
+
+  if (task.completed) li.classList.add('completed');
+
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.className = 'task-checkbox';
+  checkbox.checked = task.completed;
+  checkbox.setAttribute('aria-label', 'Позначити як виконане');
+
+  const textSpan = document.createElement('span');
+  textSpan.className = 'task-text';
+  textSpan.textContent = task.text;
+
+  const dateSpan = document.createElement('span');
+  dateSpan.className = 'task-date';
+  dateSpan.textContent = task.date || '';
+
+  const delBtn = document.createElement('button');
+  delBtn.className = 'task-delete';
+  delBtn.textContent = '✕';
+  delBtn.setAttribute('aria-label', 'Видалити задачу');
+
+  li.appendChild(checkbox);
+  li.appendChild(textSpan);
+  li.appendChild(dateSpan);
+  li.appendChild(delBtn);
+
+  return li;
 }
 
 

@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="manifest" href="/To-do-list-Frontend/manifest.json"/>
     <title>To-do</title>
 </head>
 <body>
@@ -27,40 +26,21 @@
     <!-- Основний вміст -->
     <section>
         <h2 class="tasks">My Tasks</h2>
-
-        <!-- ЗМІНА 1: додав id для JS + autocomplete -->
         <form id="task-form" autocomplete="off">
-
-            <!-- ЗМІНА 2: label залишив, але тепер без visually-hidden (CSS все одно його ховає) -->
             <label for="task">Task</label>
             <input type="text" id="task" class="input" placeholder="New task" required>
-
             <label for="date">Deadline</label>
             <input type="date" id="date" class="input-data">
-
-            <!-- ЗМІНА 3: явно вказав type="submit" -->
             <button type="submit" class="add">Add</button>
         </form>
 
-        <!-- ЗМІНА 4 (ГОЛОВНА): підготовлений контейнер для задач -->
-        <ul class="task-list">
-            <!-- JS буде додавати задачі сюди -->
-        </ul>
+        <!-- контейнер для задач -->
+        <ul class="task-list"></ul>
 
     </section>
 </main>
 
     <script src="js/app.js"></script>
 
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/To-do-list-Frontend/sw.js')
-    .then(() => console.log('Service Worker зареєстровано'));
-}
-</script>
-
-
-
-    
 </body>
 </html>

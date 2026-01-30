@@ -117,10 +117,5 @@ function applyFilter(filter) {
     });
 }
 
-// ===== Збереження в localStorage =====
-function saveTasks() {
-    localStorage.setItem('tasks', JSON.stringify(tasksData));
-}
-
 
 

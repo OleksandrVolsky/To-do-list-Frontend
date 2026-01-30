@@ -4,7 +4,7 @@ const form = document.getElementById('task-form');
 const taskInput = document.getElementById('task');
 const dateInput = document.getElementById('date');
 const taskList = document.querySelector('.task-list');
-const filterButtons = document.querySelectorAll('.nav .btn');
+const filterButtons = document.querySelectorAll('nav .btn');
 
 // ===== Завантажуємо задачі з localStorage при старті =====
 let tasksData = JSON.parse(localStorage.getItem('tasks')) || [];

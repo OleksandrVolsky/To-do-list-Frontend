@@ -1,5 +1,3 @@
-/* Спрощена версія, щоб було легше для початківця */
-
 // --- Селектори DOM ---
 const form = document.getElementById('task-form');
 const taskInput = document.getElementById('task');

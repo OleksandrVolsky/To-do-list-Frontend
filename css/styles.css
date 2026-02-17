@@ -1,8 +1,8 @@
 *{
     margin: 0px;
     padding: 0px;
-
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
 
@@ -12,7 +12,6 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    font-family: 'Inter', sans-serif;
 }
 
 main {
@@ -101,8 +100,8 @@ aside {
 
 .add {
     margin-left: 5px;
-    width: 53px;
-    height: 35px;
+    width: 54px;
+    height: 36px;
     border: 1px solid #2ECC71;
     background-color: #2ECC71;
     border-radius: 10px;
@@ -133,18 +132,10 @@ nav {
     
 }
 
-
-
-/* GPT зробив */
-/* прибрав текст той що в середені в label */
 label {
-    
-    position: absolute;
-    left: -9999px;
+   display: none;
 }
 
-
-/* ===== Оновленя для списку задач ===== */
 .task-list {
     list-style: none;
     margin-top: 25px;
@@ -164,8 +155,6 @@ label {
 
     padding: 8px 12px;
     margin-bottom: 10px;
-
-    font-family: 'Inter', sans-serif;
 }
 
 .task-checkbox {
@@ -206,90 +195,15 @@ label {
     text-decoration: line-through;
 }
 
-/* ===== Адаптивність ===== */
-/* Для планшетів і менших екранів (до 900px) */
-@media (max-width: 900px) {
-    main {
-        width: 95%;   /* ширина по ширині екрану */
-        height: auto; /* автоматична висота */
-        flex-direction: column; /* sidebar над основним контентом */
-    }
+/* Адапттивність */
+@media {
 
-    aside {
-        width: 100%;
-        border-radius: 10px 10px 0 0;
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 10px 0;
-    }
-
-    nav {
-        flex-direction: row;
-        gap: 5px;
-    }
-
-    .btn {
-        width: auto;
-        padding: 8px 12px;
-        font-size: 14px;
-    }
-
-    section {
-        width: 100%;
-        padding: 15px;
-    }
-
-    .tasks {
-        font-size: 28px;
-    }
-
-    .input {
-        width: 60%;
-        margin-bottom: 10px;
-    }
-
-    .input-data {
-        width: 30%;
-        margin-bottom: 10px;
-    }
-
-    .add {
-        width: auto;
-        padding: 8px 12px;
-    }
-
-    .task-list {
-        max-height: 300px;
-    }
 }
 
-/* Для мобільних телефонів (до 500px) */
-@media (max-width: 500px) {
-    .tasks {
-        font-size: 24px;
-    }
+@keyframes {
 
-    .btn {
-        font-size: 12px;
-        padding: 6px 10px;
-    }
-
-    .input {
-        width: 100%;
-    }
-
-    .input-data {
-        width: 100%;
-    }
-
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .task-list {
-        max-height: 250px;
-    }
 }
 
+@font-face {
+
+}
